@@ -52,7 +52,7 @@ src/
   App.tsx          Navegação e configuração da partida
   GameBoard.tsx    Tabuleiro, histórico, análise e controles
   Learn.tsx        Interface das lições e exercícios
-  curriculum.ts    Conteúdo da trilha de aprendizagem
+  curriculum.ts   Conteúdo da trilha de aprendizagem
   bots.ts          Níveis e personalidades dos bots
   engine.ts        Comunicação UCI com Stockfish
   sounds.ts        Efeitos sonoros sintetizados
