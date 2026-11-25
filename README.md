@@ -37,6 +37,8 @@ O aplicativo continua utilizável sem Stockfish, mas a força dos bots, as dicas
 
 ## Publicação no GitHub Pages
 
+**Ativação inicial necessária:** no GitHub, abra **Settings → Pages** do repositório e, em **Build and deployment**, selecione **GitHub Actions** como fonte. A permissão da automação conectada não permite criar a configuração inicial de Pages por API; depois dessa seleção, o workflow poderá publicar normalmente.
+
 O workflow `.github/workflows/deploy.yml` instala as dependências, verifica os tipos, compila e publica o conteúdo de `dist/` quando há um push em `main` ou uma execução manual do workflow.
 
 O endereço esperado do projeto é:
@@ -52,7 +54,7 @@ src/
   App.tsx          Navegação e configuração da partida
   GameBoard.tsx    Tabuleiro, histórico, análise e controles
   Learn.tsx        Interface das lições e exercícios
-  curriculum.ts   Conteúdo da trilha de aprendizagem
+  curriculum.ts    Conteúdo da trilha de aprendizagem
   bots.ts          Níveis e personalidades dos bots
   engine.ts        Comunicação UCI com Stockfish
   sounds.ts        Efeitos sonoros sintetizados
