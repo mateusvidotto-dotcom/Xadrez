@@ -2,13 +2,13 @@
 
 Treinador de xadrez em português, feito com React, TypeScript e Vite. Jogue contra bots de diferentes níveis e estilos, analise posições e pratique em uma trilha progressiva de lições e exercícios.
 
-## O que está incluído
+## Recursos
 
-- **Partidas contra bots:** seis faixas de força anunciadas (400 a 3000+), com estilos padrão, agressivo, posicional, caótico e humano simulado.
-- **Modo livre:** tabuleiro para jogar dos dois lados, navegar pelo histórico, consultar avaliação e pedir uma sugestão de lance.
-- **Ferramentas de estudo:** desfazer, histórico em notação algébrica, copiar PGN e FEN, indicação de xeque e sons de partida.
-- **Trilha de aprendizagem:** módulos do nível zero ao avançado, com explicações e exercícios interativos.
-- **Motor de xadrez:** integração com Stockfish em Web Worker; um motor simplificado é usado como alternativa quando o Stockfish não está disponível.
+- Partidas contra bots e cinco estilos de adversário.
+- Modo livre para jogar dos dois lados, navegar pelo histórico e analisar posições.
+- Sugestão de lances, avaliação, PGN e FEN.
+- Trilha de aprendizagem com lições e exercícios.
+- Stockfish executado em Web Worker, com motor simples de reserva.
 
 ## Executar localmente
 
@@ -19,7 +19,7 @@ npm install
 npm run dev
 ```
 
-Para validar e gerar a versão de produção:
+Validar e compilar:
 
 ```bash
 npm run typecheck
@@ -27,51 +27,38 @@ npm run build
 npm run preview
 ```
 
-O script `postinstall` tenta copiar automaticamente o build single-thread do Stockfish para `public/engine`. Caso o motor não seja encontrado, execute:
+O `postinstall` localiza o build single-thread do Stockfish e o copia para `public/engine`. Se o motor não estiver disponível, o aplicativo usa uma alternativa simplificada.
 
-```bash
-npm run engine
-```
+## GitHub Pages
 
-O aplicativo continua utilizável sem Stockfish, mas a força dos bots, as dicas e a avaliação ficam limitadas pelo motor de reserva.
+O projeto é publicado em:
 
-## Publicação no GitHub Pages
+https://mateusvidotto-dotcom.github.io/Xadrez/
 
-**Ativação inicial necessária:** no GitHub, abra **Settings → Pages** do repositório e, em **Build and deployment**, selecione **GitHub Actions** como fonte. A permissão da automação conectada não permite criar a configuração inicial de Pages por API; depois dessa seleção, o workflow poderá publicar normalmente.
+O workflow `.github/workflows/deploy.yml` instala as dependências, verifica os tipos e compila o aplicativo com a base `/Xadrez/`. Em seguida, sincroniza o conteúdo compilado de `dist/` com a raiz do branch `main`, que é a origem atualmente utilizada pelo GitHub Pages.
 
-O workflow `.github/workflows/deploy.yml` instala as dependências, verifica os tipos, compila e publica o conteúdo de `dist/` quando há um push em `main` ou uma execução manual do workflow.
+**Importante:** `app-source.html` é a entrada HTML usada pelo Vite. O `index.html` da raiz é o arquivo gerado para o site publicado; não o edite manualmente. Faça alterações na interface em `src/` e em `app-source.html`.
 
-O endereço esperado do projeto é:
+O arquivo `.nojekyll` impede que o GitHub Pages processe os assets do Vite como conteúdo Jekyll.
 
-`https://mateusvidotto-dotcom.github.io/Xadrez/`
-
-A configuração do Vite usa `/Xadrez/` somente durante a compilação do GitHub Pages; localmente, a aplicação continua usando `/`.
-
-## Estrutura
+## Estrutura principal
 
 ```text
-src/
-  App.tsx          Navegação e configuração da partida
-  GameBoard.tsx    Tabuleiro, histórico, análise e controles
-  Learn.tsx        Interface das lições e exercícios
-  curriculum.ts    Conteúdo da trilha de aprendizagem
-  bots.ts          Níveis e personalidades dos bots
-  engine.ts        Comunicação UCI com Stockfish
-  sounds.ts        Efeitos sonoros sintetizados
-  ui.ts            Classes e cores compartilhadas
-scripts/
-  copy-engine.mjs  Localiza e copia o build do Stockfish
-.github/
-  workflows/
-    deploy.yml     Verificação e publicação automática
+app-source.html    Entrada HTML do Vite
+src/               Aplicação React e conteúdo de aprendizagem
+scripts/           Preparação do Stockfish
+public/            Arquivos estáticos copiados para a compilação
+.github/workflows/ Compilação e publicação
+index.html         Saída gerada para GitHub Pages
+assets/            JavaScript e CSS compilados
+engine/            Stockfish compilado para o navegador
 ```
 
 ## Limitações conhecidas
 
-- A promoção do peão é automática para dama; a escolha entre dama, torre, bispo e cavalo ainda não está disponível.
-- Os níveis 400, 800 e 1200 são aproximações baseadas em habilidade, profundidade e variação de lances, não uma calibração oficial de rating.
-- Os níveis 1600 e 2200 usam o limite de força do Stockfish; o nível 3000+ usa o motor sem limite de rating e com profundidade maior. O desempenho real varia com o dispositivo e a versão do motor.
-- O modo de reserva sem Stockfish prioriza capturas, promoções e xeques; ele não substitui um motor completo.
+- A promoção do peão é automática para dama; a escolha de outra peça ainda não está disponível.
+- Os níveis de bot são aproximações de força, não calibrações oficiais de rating.
+- Sem Stockfish, as análises e os bots ficam limitados pelo motor de reserva.
 
 ## Stack
 
