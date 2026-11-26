@@ -1,3 +1,4 @@
+# Publishes Vite's compiled output to the branch-root GitHub Pages source.
 name: Build and publish Chess Coach
 
 on:
