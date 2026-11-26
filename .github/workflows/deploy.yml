@@ -47,8 +47,8 @@ jobs:
 
       - name: Normalize the Vite output and publish to the Pages root
         run: |
-          cp dist/site-template.html dist/index.html
-          rm -f dist/site-template.html
+          cp dist/src/site-template.html dist/index.html
+          rm -rf dist/src
           cp -a dist/. .
           rm -f app-source.html
           touch .nojekyll
