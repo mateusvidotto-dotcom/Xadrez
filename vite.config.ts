@@ -5,15 +5,13 @@ import { resolve } from 'node:path';
 
 export default defineConfig({
   // GitHub Pages serves this project from /Xadrez/, not from the domain root.
-  // Read process.env directly because loadEnv() only loads .env files.
   base: process.env.GITHUB_PAGES === 'true' ? '/Xadrez/' : '/',
   plugins: [react(), tailwindcss()],
-  // Keep the Vite source HTML separate: index.html at the repository root
-  // is the generated static page consumed by branch-based GitHub Pages.
+  // Keep the source template inside src/. The root index.html is generated output.
   build: {
     rollupOptions: {
       input: {
-        index: resolve(process.cwd(), 'app-source.html'),
+        index: resolve(process.cwd(), 'src/site-template.html'),
       },
     },
   },

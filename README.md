@@ -35,23 +35,29 @@ O projeto é publicado em:
 
 https://mateusvidotto-dotcom.github.io/Xadrez/
 
-O workflow `.github/workflows/deploy.yml` instala as dependências, verifica os tipos e compila o aplicativo com a base `/Xadrez/`. Em seguida, sincroniza o conteúdo compilado de `dist/` com a raiz do branch `main`, que é a origem atualmente utilizada pelo GitHub Pages.
+O workflow `.github/workflows/deploy.yml` instala as dependências, verifica os tipos e compila com a base `/Xadrez/`. Em seguida, transforma o HTML de entrada em `index.html` e sincroniza os arquivos compilados com a raiz do branch `main`, origem atualmente utilizada pelo GitHub Pages.
 
-**Importante:** `app-source.html` é a entrada HTML usada pelo Vite. O `index.html` da raiz é o arquivo gerado para o site publicado; não o edite manualmente. Faça alterações na interface em `src/` e em `app-source.html`.
+**Importante:** `src/site-template.html` é a entrada HTML do Vite. O `index.html` da raiz é saída gerada e não deve ser editado manualmente. Faça alterações da interface em `src/`.
 
-O arquivo `.nojekyll` impede que o GitHub Pages processe os assets do Vite como conteúdo Jekyll.
+O arquivo `.nojekyll` impede o processamento dos assets pelo Jekyll.
 
 ## Estrutura principal
 
 ```text
-app-source.html    Entrada HTML do Vite
-src/               Aplicação React e conteúdo de aprendizagem
-scripts/           Preparação do Stockfish
-public/            Arquivos estáticos copiados para a compilação
-.github/workflows/ Compilação e publicação
-index.html         Saída gerada para GitHub Pages
-assets/            JavaScript e CSS compilados
-engine/            Stockfish compilado para o navegador
+src/
+  site-template.html Entrada HTML do Vite
+  App.tsx            Navegação e configuração da partida
+  GameBoard.tsx      Tabuleiro, histórico e análise
+  Learn.tsx          Lições e exercícios
+  curriculum.ts      Conteúdo da trilha
+  bots.ts            Níveis e personalidades dos bots
+  engine.ts          Comunicação UCI com Stockfish
+scripts/             Preparação do Stockfish
+public/              Arquivos estáticos
+.github/workflows/   Compilação e publicação
+index.html           Saída gerada para GitHub Pages
+assets/              JavaScript e CSS compilados
+engine/              Stockfish para o navegador
 ```
 
 ## Limitações conhecidas

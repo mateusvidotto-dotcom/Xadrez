@@ -5,7 +5,6 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/deploy.yml'
-      - 'app-source.html'
       - 'src/**'
       - 'scripts/**'
       - 'public/**'
@@ -45,9 +44,12 @@ jobs:
         env:
           GITHUB_PAGES: 'true'
 
-      - name: Publish the compiled site to the Pages branch root
+      - name: Normalize the Vite output and publish to the Pages root
         run: |
+          cp dist/site-template.html dist/index.html
+          rm -f dist/site-template.html
           cp -a dist/. .
+          rm -f app-source.html
           touch .nojekyll
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
